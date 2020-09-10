@@ -1,9 +1,28 @@
-
-
-
-
-
 use std::collections::HashMap;
+
+/// `kvstore` is a simple in-memory key-value store implementation in Rust.
+/// 
+/// ## Expectation
+/// It is expected morphose into a command line application with 
+/// persistent data storage and proper logging. 
+/// 
+/// ## Example
+/// ```
+/// use kvstore::KvStore;
+/// 
+/// let mut store = KvStore::new();
+/// store.set("cat", "meow");
+/// store.set("dog", "bark");
+/// store.set("horse", "neigh");
+/// 
+/// let dog_sound = store.get("dog");
+/// let cat_sound = store.get("cat");
+/// store.remove("horse");
+/// 
+/// assert_eq!(Some("bark".to_string()), dog_sound);
+/// assert_eq!(Some("meow".to_string()), cat_sound);
+/// assert_eq!(None, store.get("horse"));
+/// ```
 
 #[derive(Debug)]
 pub struct KvStore {
@@ -13,6 +32,7 @@ pub struct KvStore {
 
 // Store methods
 impl KvStore {
+    
     pub fn new() -> KvStore {
         KvStore {
             map: HashMap::new(),
@@ -195,8 +215,6 @@ mod test {
         assert_eq!(store, new_store);
         assert_eq!(store.map, new_store.map)
     }
-
-
 
 }
 
